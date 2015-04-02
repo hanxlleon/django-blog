@@ -1,24 +1,47 @@
 {% load staticfiles %}
 
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <link rel="shortcut icon" href="{% static 'pic/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'pic/favicon.ico' %}" type="image/x-icon">
+    {% block css %}{% endblock %}
     <title>Django Leon Blog</title>
 </head>
 <body>
-    <div class="page-header">
-        <a href="{% url 'blog.views.post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-        <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
-        <h1><a href="/">Django Leon Blog</a></h1>
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Django Blog</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                     <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">博客<span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="{% url 'blog.views.post_new' %}">写博客</a></li>
+                        <li><a href="{% url 'post_draft_list' %}">发布</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+            </div>
+        </div>
     </div>
     <div class="content">
         <div class="row">
@@ -26,8 +49,45 @@
                 {% block content %}
                 {% endblock %}
             </div>
+            <div class="col-md-4">
+                {% block tag %}
+                {% endblock %}
+            </div>
         </div>
     </div>
 
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                  <div class="col-lg-3">
+                  <h4 class="footer-list-heading">联系方式:</h4>
+                    <nav>
+                      <ul>
+                         <li><a href="mailto:leonhanxl@163.com?subject=你好,leon">163邮箱</a></li>
+                        <li><a href="https://github.com/hanxlleon" target="_blank">GitHub</a></li>
+                      </ul>
+                    </nav>
+                  </div>
+                  <div class="col-lg-5">
+                  </div>
+                  <a id="gotop" href="#" onclick="MGJS.goTop();return false;">回到顶部</a>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                </div>
+                <div id="footer">
+                    <div id="copyright">版权所有 © 2015 <a href="http://weibo.com/u/1701632303/home">Leon</a></div>
+                 </div>
+            </div>
+        </div>
+        {% block footer %}
+        {% endblock %}
+    </div>
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    {% block js %}{% endblock %}
 </body>
 </html>
